@@ -1,6 +1,6 @@
 {
   "name": "naive-bayes-classifier",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "bayesian classifier for nodejs",
   "main": "lib/classifier.js",
   "dependencies": {},
