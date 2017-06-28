@@ -5,4 +5,4 @@ node_modules
 *.psd
 .idea
 .vscode
-lib
+lib/*
