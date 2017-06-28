@@ -4,9 +4,11 @@ export default class NaiveBayesClassifier {
     setWord: Set<any>;
     mapCategory: Object;
     mapTrainedWordNum: Map<any, any>;
+    userFix: Function;
 
 
-    constructor(...args) {
+    constructor(fix: Function) {
+        this.userFix = fix || NaiveBayesClassifier.fix;
         this.restore();
     }
 
@@ -26,7 +28,7 @@ export default class NaiveBayesClassifier {
      */
     train(docs: Array<any>) {
         docs.forEach(({ category, text }) => {
-            let words = NaiveBayesClassifier.fix(text);
+            let words = this.userFix(text);
             if (category && words && words.length) {
                 this.mapCategory[category] || (this.mapCategory[category] = new Map());
                 let mapCat = this.mapCategory[category];
@@ -59,7 +61,7 @@ export default class NaiveBayesClassifier {
      * @param text 
      */
     categorize(text: string): any {
-        let words = NaiveBayesClassifier.fix(text);
+        let words = this.userFix(text);
         let category = Object.keys(this.mapCategory).reduce((ka, kb) => this.getProp(words, ka) > this.getProp(words, kb) ? ka : kb);
         return { category: category, probability: this.getProp(words, category) };
     }
