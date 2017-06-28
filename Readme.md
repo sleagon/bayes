@@ -1,6 +1,6 @@
 # Naive Bayes classifier(Node.js)
 
-##install
+## install
 
 ```
 npm install naive-bayes-classifier --save
