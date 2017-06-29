@@ -5,10 +5,12 @@ export default class NaiveBayesClassifier {
     mapCategory: Object;
     mapTrainedWordNum: Map<any, any>;
     userFix: Function;
+    alpha: number;
 
 
-    constructor(fix: Function) {
-        this.userFix = fix || NaiveBayesClassifier.fix;
+    constructor(fix: Function = NaiveBayesClassifier.fix, alpha: number = 1) {
+        this.userFix = fix;
+        this.alpha = alpha;
         this.restore();
     }
 
@@ -51,7 +53,7 @@ export default class NaiveBayesClassifier {
         let localProp = 0;
         let localMapProp = this.mapCategory[category];
         words.forEach(word => {
-            localProp += Math.log((1 + (localMapProp.get(word) || 0)) / ((this.mapTrainedWordNum.get(word) || 0) + this.setWord.size));
+            localProp += Math.log((this.alpha + (localMapProp.get(word) || 0)) / ((this.mapTrainedWordNum.get(word) || 0) + this.alpha * this.setWord.size));
         });
         return localProp;
     }
